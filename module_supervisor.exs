@@ -1,17 +1,17 @@
 defmodule BasicSupervisor do
     use Supervisor
 
-    def start_link(args) do
-        Supervisor.start_link(__MODULE__, [args], name: __MODULE__)
+    def start_link() do
+        Supervisor.start_link(__MODULE__, [], name: __MODULE__)
     end
 
-    def init([args]) do
-        children = [
-            worker(Basic, [])
-        ]
+    # def init([args]) do
+    #     children = [
+    #         worker(Basic, [])
+    #     ]
 
-        Supervisor.init(children, strategy: :one_for_one)
-    end
+    #     Supervisor.init(children, strategy: :one_for_one)
+    # end
 end
 
 
@@ -24,7 +24,7 @@ defmodule Basic do
         GenServer.start_link(__MODULE__, [])
     end
 
-    def init(_args) do
-        {:ok, :initial_state}
+    def init(initial_data) do
+        {:ok, :initial_data}
     end
 end
