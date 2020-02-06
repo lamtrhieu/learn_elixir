@@ -9,6 +9,21 @@ defmodule BitmexService do
     # plug Tesla.Middleware.JSON
     # plug Tesla.Middleware.Headers, [{"Content-Type", "application/json"}, {"Accept", "application/json"}]
 
+    def getAllOrders() do
+        IO.puts "hieu hieu hieu start"
+        verb = "GET"
+        # path = "/api/v1/order?symbol%3D%22XBTUSD%22"
+        path = "/api/v1/order?count%3D100%26reverse%3Dfalse"
+        data = ""
+      
+        url = @bitmexApiURL <> path
+        headers = getHeaders(verb, path, data)
+        HTTPoison.get(url, headers) |> IO.inspect()
+
+        IO.puts "Hieu Hieu Hieu"
+        # IO.inspect response
+    end
+
     def createOrder(quantity, price, side) do
         verb = "POST"
         path = "/api/v1/order"
@@ -25,8 +40,24 @@ defmodule BitmexService do
         url = @bitmexApiURL <> path
         headers = getHeaders(verb, path, data)
 
-        # {:ok, %HTTPoison.Response{status_code: 200, body: body}} = 
-        HTTPoison.post(url, Jason.encode!(data), headers) |> IO.inspect()
+        {:ok, %HTTPoison.Response{status_code: 200, body: body}} = 
+                HTTPoison.post(url, Jason.encode!(data), headers)
+        body
+    end
+
+    def deleteOrder(orderId, clientOrderid, reason) do
+        verb = "DELETE"
+        path = "/api/v1/order"
+        data = %{
+            orderId: orderId,
+            clientOrderid: clientOrderid,
+            text: reason
+        }
+
+        url = url = @bitmexApiURL <> path
+        headers = getHeaders(verb, path, data)
+        HTTPoison.delete(url, Jason.encode!)
+
     end
 
     def getHeaders(verb, path, data) do

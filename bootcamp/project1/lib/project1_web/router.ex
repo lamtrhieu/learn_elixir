@@ -21,9 +21,9 @@ defmodule Project1Web.Router do
 
 
   scope "/", Bitmex do 
-    pipe_through :api
+    pipe_through :browser
 
-    resources "/order", OrderController
+    resources "/order", OrderController 
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,14 @@
+<form action="/order" method="POST">
+  <input type="hidden" name="_csrf_token" value="<%= Plug.CSRFProtection.get_csrf_token() %>">
+
+  <div class="form-group">
+    <label for="orderPrice">Price</label>
+    <input type="text" class="form-control" id="orderPrice" aria-describedby="emailHelp">
+  </div>
+  <div class="form-group">
+    <label for="orderQuantity">Quantity</label>
+    <input type="number" class="form-control" id="orderQuantity" aria-describedby="emailHelp">
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
